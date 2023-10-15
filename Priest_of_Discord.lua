@@ -10,24 +10,24 @@ function event_say(e)
 	end
 	if(e.other:GetLevel() == 1 and e.other:IsSelfFound() == 0 and e.other:IsSoloOnly() == 0 and e.other:IsHardcore() == 0) then
 		if(e.message:findi("rulesets")) then
-			e.self:Say("I offer to bind you three different rulesets, [solo], [self found], and [hardcore]. Should you wish to bind yourself to this fate, speak the ruleset, read the tome and return any number of the 3 tomes to me at one time.");
-			e.other:Message(13, "By accepting any of these options, you will immediately be completely reset and sent back to your starting location. This will be irreversible.");
+			e.self:Say("I offer to bind you three different rulesets, [solo], [self found], and [hardcore]. Should you wish to bind yourself to any of these fates, speak the ruleset, read the tome, and return it to me. You must give me all desired tomes at once.");
+			e.other:Message(13, "By returning any of these tomes, you will immediately be completely reset and sent back to your starting location. This will be irreversible.");
 		end
         elseif(e.message:findi("solo")) then
 			e.self:Say("The Tome of Autonomy and Solitude is for those wishing to be purely self-reliant. You will be bound by the rules contained within should you return it to me.");
 			e.other:SummonCursorItem(000000); -- Item: Tome of Autonomy and Solitude
 		end
         elseif(e.message:findi("self found")) then
-			e.self:Say("The Tome of Ambition and Purpose is for those wishing to claw their own triumphs from the land");
+			e.self:Say("The Tome of Ambition and Purpose is for those wishing to tear their own power from Norrath. You will be bound by the rules contained within should you return it to me.");
 			e.other:SummonCursorItem(000000); -- Item: Tome of Ambition and Purpose
 		end
         elseif(e.message:findi("hardcore")) then
-			e.self:Say("The Tome of Precipice and Depair is for those chasing risk. ");
+			e.self:Say("The Tome of Precipice and Depair is for those not satisfied by ordinary fear. You will be bound by the rules contained within should you return it to me.");
 			e.other:SummonCursorItem(000000); -- Item: Tome of Precipice and Depair
 		end
 	else
 		if(e.message:findi("rulesets")) then
-		e.self:Say("I can't offer you anything as you are above the first season, or have already chosen your rulesets. Begone, mortal.");
+			e.self:Say("I can't offer you anything as you are above the first season, or have already chosen your rulesets. Begone, mortal.");
 		elseif(e.message:findi("solo")) then
 			e.self:Say("I can't offer you anything as you are above the first season, or have already chosen your rulesets. Begone, mortal.");
 		elseif(e.message:findi("self found")) then
@@ -48,12 +48,12 @@ function event_trade(e)
     if(e.other:GetLevel() == 1 and e.other:IsSelfFound() == 0 and e.other:IsSoloOnly() == 0 and e.other:IsHardcore() == 0) then
 	    local is_special_flag_response = false;
 	    if(item_lib.check_turn_in(e.self, e.trade, {item1 = 0000000})) then -- Item: Tome of Autonomy and Solitude
-	    	e.self:Say("You will lead a life of solitude. Feast or famine, the harvest will not reap itself.");
+	    	e.self:Say("You will lead a life of solitude. Feast or famine.. your harvest will not reap itself.");
 	    	e.other:SetSoloOnly(1);
 	    	is_special_flag_response = true;
 	    end
 	    if(item_lib.check_turn_in(e.self, e.trade, {item1 = 0000000})) then -- Item: Tome of Ambition and Purpose
-	    	e.self:Say("You will be an achiever. Feats wrought in blood. Your pedestal is");
+	    	e.self:Say("You will be an achiever. Feats tempered in blood, ambition calls you back to the forge.");
 	    	e.other:SetSelfFound(1);
 	    	is_special_flag_response = true;
 	    end
@@ -64,7 +64,7 @@ function event_trade(e)
 	    end
 	    if(is_special_flag_response) then
 	    	e.other:ClearPlayerInfoAndGrantStartingItems();
-	    end
+		end
 	end
 end
 
